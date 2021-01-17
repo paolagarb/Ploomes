@@ -1,6 +1,6 @@
 ﻿namespace Ploomes.Entities
 {
-    class Phones
+    public class Phones
     {
         public int Id { get; set; }
         public string PhoneNumber { get; set; }

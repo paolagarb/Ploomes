@@ -2,7 +2,7 @@
 
 namespace Ploomes.Entities
 {
-    class Tasks
+    public class Tasks
     {
         public int Id { get; set; }
         public string Title { get; set; }
