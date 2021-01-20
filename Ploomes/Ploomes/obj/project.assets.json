@@ -5414,11 +5414,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\paola\\OneDrive\\Área de Trabalho\\Ploomes\\Ploomes\\Ploomes\\Ploomes.csproj",
+      "projectUniqueName": "C:\\Users\\paola\\OneDrive\\Área de Trabalho\\AT\\Ploomes\\Ploomes\\Ploomes\\Ploomes.csproj",
       "projectName": "Ploomes",
-      "projectPath": "C:\\Users\\paola\\OneDrive\\Área de Trabalho\\Ploomes\\Ploomes\\Ploomes\\Ploomes.csproj",
+      "projectPath": "C:\\Users\\paola\\OneDrive\\Área de Trabalho\\AT\\Ploomes\\Ploomes\\Ploomes\\Ploomes.csproj",
       "packagesPath": "C:\\Users\\paola\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\paola\\OneDrive\\Área de Trabalho\\Ploomes\\Ploomes\\Ploomes\\obj\\",
+      "outputPath": "C:\\Users\\paola\\OneDrive\\Área de Trabalho\\AT\\Ploomes\\Ploomes\\Ploomes\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"

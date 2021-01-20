@@ -9,89 +9,88 @@ namespace Ploomes.Helper
 {
     public class APIOperations
     {
-        PloomesAPI _api = new PloomesAPI();
+        HttpClient client;
 
-        public async Task<object> CreateContact(Contacts contacts)
+        public APIOperations()
         {
-            return Post("/Contacts?$select=Id", contacts, "criar o cliente.");
+            client = PloomesAPI.Initial();
         }
 
-        public async Task<object> CreateDeals(Deals deals)
+        public dynamic CreateContact(Contacts contacts)
         {
-            return Post("/Deals?$select=Id", deals, "criar a negociação.");
+            return Post("Contacts?$select=Id", contacts, "criar o cliente.");
         }
 
-        public async Task<object> CreateTasks(Tasks tasks)
+        public dynamic CreateDeals(Deals deals)
         {
-            return Post("/Tasks?#select=Id", tasks, "criar a tarefa.");
+            return Post("Deals?$select=Id", deals, "criar a negociação.");
         }
 
-        public async Task<object> UpdateDeals(Deals dealsUpdate, int id)
+        public dynamic CreateTasks(Tasks tasks)
         {
-            return Patch($"/Deals({id})?#select=Id", dealsUpdate, "atualizar a negociação.");
+            return Post("Tasks?$select=Id", tasks, "criar a tarefa.");
         }
 
-        public async Task<object> FinishTasks(Tasks tasks, int id)
+        public dynamic UpdateDeals(Deals dealsUpdate, int id)
         {
-            return Post($"/Tasks({id})/Finish?#select=Id", tasks, "finalizar a tarefa.");
+            return Patch($"Deals({id})", dealsUpdate, "atualizar a negociação.");
         }
 
-        public async Task<object> WinDeals(Deals deals, int id)
+        public dynamic FinishTasks(Tasks tasks, int id)
         {
-            return Post($"/Deals({id})/Win?$select=Id", deals, "registrar a negociação");
+            return Post($"Tasks({id})/Finish", tasks, "finalizar a tarefa.");
         }
 
-        public async Task<object> InteractionRecords(InteractionsRecords interactionsRecords)
+        public dynamic WinDeals(Deals deals, int id)
         {
-            return Post("/InteractionsRecords?$select=Id", interactionsRecords, "escrever no histórico.");
+            return Post($"Deals({id})/Win", deals, "registrar a negociação");
         }
 
-        public async Task<object> Patch(string requestUri, object value, string message)
+        public dynamic InteractionRecords(InteractionRecords interactionRecords)
+        {
+            return Post("InteractionRecords?$select=Id", interactionRecords, "escrever no histórico.");
+        }
+
+        public async Task<dynamic> Patch(string requestUri, object value, string message)
         {
             try
             {
-                HttpClient client = _api.Initial();
-
                 var jsonContent = JsonConvert.SerializeObject(value);
                 var contentString = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
                 var response = await client.PatchAsync(requestUri, contentString);
+
                 if (response.IsSuccessStatusCode)
                 {
                     var res = response.Content.ReadAsStringAsync().Result;
-                    return JsonConvert.DeserializeObject(res);
+                    return JsonConvert.DeserializeObject<dynamic>(res);
                 }
-                return null;
+                return 0;
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Ocorreu um erro ao {message}");
-                return null;
+                return 0;
             }
         }
 
-        public async Task<object> Post(string requestUri, object value, string message)
+        public async Task<dynamic> Post(string requestUri, object value, string message)
         {
             try
             {
-                HttpClient client = _api.Initial();
-
-                var jsonContent = JsonConvert.SerializeObject(value);
-                var contentString = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-
-                var response = await client.PostAsync(requestUri, contentString);
+                var response = await client.PostAsJsonAsync(requestUri, value);
 
                 if (response.IsSuccessStatusCode)
                 {
                     var res = response.Content.ReadAsStringAsync().Result;
-                    return JsonConvert.DeserializeObject(res);
+                    return JsonConvert.DeserializeObject<dynamic>(res);
                 }
-                return null;
+                return 0;
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Ocorreu um erro ao {message}");
-                return null;
+                return 0;
             }
         }
     }
